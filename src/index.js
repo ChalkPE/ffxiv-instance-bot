@@ -47,6 +47,8 @@ function onZoneChange(payload) {
 function onMeSpawned(payload) {
   let id = payload[0];
   let name = payload[1];
+
+  myName = name;
 }
 
 function onEntitySpawned(payload) {
