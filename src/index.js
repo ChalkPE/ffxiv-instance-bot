@@ -1,33 +1,31 @@
+let zone = '-1';
+let me = ['-1', ''];
+
 const JOB_CODES = {
-  '1c': '학자',
   'c': '가죽공예가',
+  '1c': '학자',
   '21': '점성술사'
 }
 
 document.addEventListener('onLogLine', event => {
-  let detail = event.detail
-  
-  switch (detail.opcode) {
+  let opcode = event.detail.opcode;
+  let payload = event.detail.payload;
+
+  console.log(opcode, payload);
+  switch (opcode) {
     case 0:
-      onChatMessage(detail.payload);
-      break;
+    return onChatMessage(payload);
 
     case 1:
-      onZoneChange(detail.payload);
-      break;
+    return onZoneChange(payload);
 
     case 2:
-      onMeSpawned(detail.payload);
-      break;
+    return onMeSpawned(payload);
 
     case 3:
-      onEntitySpawned(detail.payload);
-      break;
+    return onEntitySpawned(payload);
   }
 })
-
-let myName = '';
-let lastZone = -1;
 
 function onChatMessage(payload) {
   let type = payload[0];
@@ -39,8 +37,8 @@ function onZoneChange(payload) {
   let id = payload[0];
   let name = payload[1];
 
-  if (id !== lastZone) {
-    lastZone = id;
+  if (id !== zone) {
+    zone = id;
   }
 }
 
@@ -48,7 +46,9 @@ function onMeSpawned(payload) {
   let id = payload[0];
   let name = payload[1];
 
-  myName = name;
+  if (me[0] !== id) {
+    me = [id, name];
+  }
 }
 
 function onEntitySpawned(payload) {
