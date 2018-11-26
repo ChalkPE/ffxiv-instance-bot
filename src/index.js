@@ -1,3 +1,3 @@
-document.addEventListener('onLogLine', ({ detail }) => {
-  console.log(detail)
+document.addEventListener('onLogLine', event => {
+  console.log(event.detail)
 })
