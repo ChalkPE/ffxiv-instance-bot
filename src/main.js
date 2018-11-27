@@ -1,14 +1,19 @@
 (function () {
-  'use strict'
+  'use strict';
 
   let zone = '-1';
-  let me = ['-1', ''];
+  let profile = {
+    id: '',
+    name: '',
+    job: '',
+    level: 0
+  };
 
   const JOB_CODES = {
     'c': '가죽공예가',
     '1c': '학자',
     '21': '점성술사'
-  }
+  };
 
   document.addEventListener('onLogLine', event => {
     let opcode = event.detail.opcode;
@@ -49,8 +54,9 @@
     let id = payload[0];
     let name = payload[1];
 
-    if (me[0] !== id) {
-      me = [id, name];
+    if (id !== profile.id) {
+      profile.id = id;
+      profile.name = name;
     }
   }
 
