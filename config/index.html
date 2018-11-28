@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Instance bot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   </head>
-  <body>
-    <input type="text" id="token" placeholder="e.g. 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+  <body class="lang-ko">
+    <div id="app">
+      <ul class="tab tab-block">
+        <li class="tab-item" v-for="tab of tabs" :key="tab.id">
+          <router-link :to="tab.id" active-class="active">{{tab.name}}</router-link>
+        </li>
+      </ul>
+
+      <div class="container mt-2">
+        <router-view></router-view>
+      </div>
+    </div>
+
+    <template id="general">
+      <div class="form-group" v-for="f of fields" :key="f.key">
+        <label class="form-label" :for="f.key">{{f.name}}</label>
+        <input class="form-input" :type="f.type" :id="f.key" :placeholder="f.placeholder">
+      </div>
+    </template>
+
+    <template id="about">
+      <h2 class="text-center">FFXIV Instance bot</h2>
+      <h5 class="text-center">[여기에 텍스트 입력]</h5>
+    </template>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
