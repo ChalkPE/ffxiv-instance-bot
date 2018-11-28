@@ -19,14 +19,19 @@
         ls: window.localStorage,
         fields: [
           {
+            type: 'checkbox',
+            key: 'instbot--threshold',
+            name: '전송 제한하기',
+            hint: '10분 동안은 이미 진입했던 지역에 재진입해도 알림을 보내지 않습니다.'
+          }, {
             type: 'text',
-            key: 'telegram-token',
+            key: 'instbot--telegram-token',
             name: '텔레그램 봇 토큰',
             placeholder: '예) 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
           }, {
             type: 'number',
-            key: 'telegram-chat-id',
-            name: '텔레그램 챗 ID',
+            key: 'instbot--telegram-chat-id',
+            name: '텔레그램 Chat ID',
             placeholder: '예) 56781234'
           }
         ]

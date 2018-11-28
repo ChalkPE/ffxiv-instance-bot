@@ -24,14 +24,29 @@
 
     <template id="general">
       <div class="form-group" v-for="f of fields" :key="f.key">
-        <label class="form-label" :for="f.key">{{f.name}}</label>
-        <input
-          class="form-input"
-          :id="f.key"
-          :type="f.type"
-          :placeholder="f.placeholder"
-          :value="ls.getItem(f.key, f.def)"
-          @input="ls.setItem(f.key, $event.target.value)">
+
+        <template v-if="f.type === 'checkbox'">
+          <label class="form-switch">
+            <input
+              type="checkbox"
+              :checked="ls.getItem(f.key) === 'true'"
+              @change="ls.setItem(f.key, $event.target.checked)">
+
+            <i class="form-icon"></i>
+            {{ f.name }}
+          </label>
+        </template>
+        <template v-else>
+          <label class="form-label" :for="f.key">{{f.name}}</label>
+          <input
+            class="form-input"
+            :id="f.key"
+            :type="f.type"
+            :placeholder="f.placeholder"
+            :value="ls.getItem(f.key, f.def)"
+            @input="ls.setItem(f.key, $event.target.value)">
+        </template>
+        <p v-if="f.hint" class="form-input-hint">{{f.hint}}</p>
       </div>
     </template>
 
