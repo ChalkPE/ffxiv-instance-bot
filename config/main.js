@@ -22,7 +22,7 @@
             type: 'checkbox',
             key: 'instbot--threshold',
             name: '전송 제한하기',
-            hint: '10분 동안은 이미 진입했던 지역에 재진입해도 알림을 보내지 않습니다.'
+            hint: '15분 동안은 이미 진입했던 지역에 재진입해도 알림을 보내지 않습니다.'
           }, {
             type: 'text',
             key: 'instbot--telegram-token',

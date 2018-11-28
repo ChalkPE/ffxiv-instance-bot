@@ -74,7 +74,7 @@
 
       if (token && chatId && profile.name && zone.name) {
         let t = localStorage.getItem('instbot--threshold') === 'true'
-        if (t && (Date.now() - zoneHistory[zone.id + profile.job]) < 600000) return
+        if (t && (Date.now() - zoneHistory[zone.id + profile.job]) < 900000) return
 
         let endpoint = `https://api.telegram.org/bot${token}/sendMessage`
         let text = `<${profile.name}> ⇒${zone.name} (레벨 ${profile.level} ${profile.job})`
