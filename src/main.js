@@ -73,14 +73,14 @@
       let chatId = localStorage.getItem('instbot--telegram-chat-id')
 
       if (token && chatId && profile.name && zone.name) {
-        let threshold = localStorage.getItem('instbot--threshold') === 'true'
-        if (threshold && (Date.now() - zoneHistory[zone.id]) < 600000) return
+        let t = localStorage.getItem('instbot--threshold') === 'true'
+        if (t && (Date.now() - zoneHistory[zone.id + profile.job]) < 600000) return
 
         let endpoint = `https://api.telegram.org/bot${token}/sendMessage`
         let text = `<${profile.name}> ⇒${zone.name} (레벨 ${profile.level} ${profile.job})`
 
         loader.classList.add('loading')
-        zoneHistory[zone.id] = Date.now()
+        zoneHistory[zone.id + profile.job] = Date.now()
 
         fetch(`${endpoint}?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
           .then(res => console.log(res) || loader.classList.remove('loading'))
@@ -117,6 +117,7 @@
 
   window.zone = zone
   window.profile = profile
+  window.zoneHistory = zoneHistory
 
   status.addEventListener('click', openConfig)
   document.addEventListener('onLogLine', onLogLine)
