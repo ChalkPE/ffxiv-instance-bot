@@ -16,7 +16,7 @@
       id: 'general',
       displayName: '일반',
       data: () => ({
-        ls: window.localStorage,
+        s: window.localStorage,
         fields: [
           {
             type: 'checkbox',

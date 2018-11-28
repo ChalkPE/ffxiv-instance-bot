@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Instance bot</title>
+    <title>Instbot</title>
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   </head>
   <body class="lang-ko">
@@ -24,13 +24,12 @@
 
     <template id="general">
       <div class="form-group" v-for="f of fields" :key="f.key">
-
         <template v-if="f.type === 'checkbox'">
           <label class="form-switch">
             <input
               type="checkbox"
-              :checked="ls.getItem(f.key) === 'true'"
-              @change="ls.setItem(f.key, $event.target.checked)">
+              :checked="s.getItem(f.key) === 'true'"
+              @change="s.setItem(f.key, $event.target.checked)">
 
             <i class="form-icon"></i>
             {{ f.name }}
@@ -43,16 +42,16 @@
             :id="f.key"
             :type="f.type"
             :placeholder="f.placeholder"
-            :value="ls.getItem(f.key, f.def)"
-            @input="ls.setItem(f.key, $event.target.value)">
+            :value="s.getItem(f.key, f.def)"
+            @input="s.setItem(f.key, $event.target.value)">
         </template>
         <p v-if="f.hint" class="form-input-hint">{{f.hint}}</p>
       </div>
     </template>
 
     <template id="about">
-      <h2 class="text-center">FFXIV Instance bot</h2>
-      <h5 class="text-center">[여기에 텍스트 입력]</h5>
+      <h2 class="text-center">ffxiv-instbot</h2>
+      <h5 class="text-center">파판14 인게임 인스턴스 이동 알림봇</h5>
     </template>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
