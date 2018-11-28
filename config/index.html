@@ -11,7 +11,9 @@
     <div id="app">
       <ul class="tab tab-block">
         <li class="tab-item" v-for="tab of tabs" :key="tab.id">
-          <router-link :to="tab.id" active-class="active">{{tab.name}}</router-link>
+          <router-link
+            :to="tab.id"
+            active-class="active">{{tab.displayName}}</router-link>
         </li>
       </ul>
 
@@ -23,7 +25,13 @@
     <template id="general">
       <div class="form-group" v-for="f of fields" :key="f.key">
         <label class="form-label" :for="f.key">{{f.name}}</label>
-        <input class="form-input" :type="f.type" :id="f.key" :placeholder="f.placeholder">
+        <input
+          class="form-input"
+          :id="f.key"
+          :type="f.type"
+          :placeholder="f.placeholder"
+          :value="ls.getItem(f.key, f.def)"
+          @input="ls.setItem(f.key, $event.target.value)">
       </div>
     </template>
 

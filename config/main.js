@@ -1,42 +1,52 @@
 (function () {
   'use strict'
 
-  const fields = [
-    {
-      type: 'text',
-      key: 'telegram-token',
-      name: '텔레그램 봇 토큰',
-      placeholder: '예) 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
-    }, {
-      type: 'text',
-      key: 'telegram-chatid',
-      name: '텔레그램 챗 ID',
-      placeholder: '예) 56781234'
+  function tabComponent(tab) {
+    return {
+      name: tab.id[0].toUpperCase() + tab.id.slice(1) + 'Tab',
+      template: `
+        <section id="tab-${tab.id}">
+          ${document.getElementById(tab.id).innerHTML}
+        </section>`
     }
-  ]
+  }
 
   const tabs = [
-    {id: 'general', name: '일반', data: {fields}},
-    {id: 'about', name: '정보'}
+    {
+      id: 'general',
+      displayName: '일반',
+      data: () => ({
+        ls: window.localStorage,
+        fields: [
+          {
+            type: 'text',
+            key: 'telegram-token',
+            name: '텔레그램 봇 토큰',
+            placeholder: '예) 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
+          }, {
+            type: 'number',
+            key: 'telegram-chat-id',
+            name: '텔레그램 챗 ID',
+            placeholder: '예) 56781234'
+          }
+        ]
+      }),
+    },
+
+    { id: 'about', displayName: '정보' }
   ]
 
-  const routes = tabs.map(tab => ({
-    name: tab.name,
-    path: '/' + tab.id,
-    component: {
-      data: () => tab.data || {},
-      template: `<section id="tab-${tab.id}">
-        ${document.getElementById(tab.id).innerHTML}
-      </section>`
-    }
-  }))
+  const routes = tabs
+    .map(tab => ({
+      name: tab.id,
+      path: '/' + tab.id,
+      component: Object.assign(tabComponent(tab), tab)
+    }))
+    .concat({ path: '*', redirect: '/general' })
 
-  routes.push({path: '*', redirect: '/general'})
-
-  const app = new Vue({
+  window.app = new Vue({
+    el: '#app',
     data: () => ({tabs}),
     router: new VueRouter({routes})
   })
-
-  app.$mount('#app')
 })()
