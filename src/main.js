@@ -13,12 +13,17 @@
     level: 0
   }
 
+  let loader = document.getElementById('loader')
+  let status = document.getElementById('status')
 
   function onLogLine (event) {
     let opcode = event.detail.opcode
     let payload = event.detail.payload
+    let timestamp = event.detail.timestamp
 
-    console.log(opcode, payload)
+    if (location.protocol === 'file:') {
+      console.log(opcode, payload, timestamp)
+    }
 
     switch (opcode) {
       case 0: return onChatMessage(payload)
@@ -60,7 +65,20 @@
 
     if (id !== zone.id) {
       zone.id = id
-      zone.name = name
+      status.textContent = zone.name = name
+
+      let token = localStorage.getItem('telegram-token')
+      let chatId = localStorage.getItem('telegram-chat-id')
+
+      if (token && chatId && profile.name && zone.name) {
+        let endpoint = `https://api.telegram.org/bot${token}/sendMessage`
+        let text = `<${profile.name}> ⇒${zone.name} (레벨 ${profile.level} ${profile.job})`
+
+        loader.classList.add('loading')
+        fetch(`${endpoint}?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
+          .then(res => console.log(res) || loader.classList.remove('loading'))
+          .catch(err => console.error(err) || loader.classList.remove('loading'))
+      }
     }
   }
 
@@ -93,6 +111,6 @@
   window.zone = zone
   window.profile = profile
 
+  status.addEventListener('click', openConfig)
   document.addEventListener('onLogLine', onLogLine)
-  document.getElementById('config').addEventListener('click', openConfig)
 })()

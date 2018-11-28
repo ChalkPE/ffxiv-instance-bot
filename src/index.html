@@ -1,13 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instance bot</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+      * {
+        color: white;
+        font-size: 14.5px;
+        text-shadow: 0 0 3px #ffc72f;
+        font-family: '맑은 고딕', sans-serif;
+      }
+
+      @keyframes loading {
+          0% { transform: rotate(0) }
+        100% { transform: rotate(360deg) }
+      }
+
+      body {
+        width: 17rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      #loader {
+        width: 0.8rem;
+        height: 0.8rem;
+
+        border-radius: 50%;
+        border: 0.1rem solid white;
+        border-top-color: transparent;
+        border-right-color: transparent;
+
+        opacity: 0;
+        display: inline-block;
+        transition: opacity 0.5s ease;
+      }
+
+      #loader.loading {
+        opacity: 1;
+        animation: loading 0.5s infinite linear;
+      }
+
+      #status {
+        text-align: right;
+        margin-left: 0.5rem;
+      }
+    </style>
   </head>
   <body>
-    <span id="config">?</span>
+    <div id="loader"></div>
+    <div id="status">대기 중</div>
+
     <script src="const.js"></script>
     <script src="main.js"></script>
   </body>
