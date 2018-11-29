@@ -23,7 +23,7 @@
     let payload = event.detail.payload
     let timestamp = event.detail.timestamp
 
-    if (location.protocol === 'file:') {
+    if (location.protocol === 'file:' && opcode !== 251) {
       console.log(opcode, payload, timestamp)
     }
 
