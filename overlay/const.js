@@ -38,6 +38,11 @@
   }
 
   const BUFF_PREFERENCE = {
+    '용의 왼눈': {
+      love: 'all',
+      hate: 'none'
+    },
+
     '아제마의 균형': {
       love: 'all',
       hate: 'none'
