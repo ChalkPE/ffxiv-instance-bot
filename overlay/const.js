@@ -37,5 +37,36 @@
     '23': '적마도사'
   }
 
+  const CARD_PREFERENCE = {
+    '아제마의 균형': {
+      love: 'all',
+      hate: 'none'
+    },
+
+    '세계수의 줄기': {
+      love: ['검술사', '도끼술사'],
+      hate: 'none'
+    },
+
+    '오쉬온의 화살': {
+      love: [],
+      hate: []
+    },
+
+    '할로네의 창': {
+      love: [],
+      hate: []
+    },
+    '살리아크의 물병': {
+      love: [],
+      hate: []
+    },
+    '비레고의 탑': {
+      love: [],
+      hate: []
+    }
+  }
+
   window.JOB_CODES = JOB_CODES
+  window.CARD_PREFERENCE = CARD_PREFERENCE
 })()
