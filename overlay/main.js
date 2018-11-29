@@ -95,54 +95,42 @@
     let id = payload[0].toLowerCase()
     // let name = payload[1]
     let job = payload[2]
-    let level = payload[3]
+    let level = parseInt(payload[3], 16)
 
     if (id === profile.id) {
       profile.job = JOB_NAMES[job] || `Unknown (${job})`
-      profile.level = parseInt(level, 16)
+      profile.level = level
     }
   }
 
   function onBuffed (payload) {
-    let id = payload[0].toLowerCase()
+    // let id = payload[0].toLowerCase()
     let name = payload[1]
-    let duration = payload[2]
-    let from = {
+    // let duration = payload[2]
+    // let stack = payload[7]
+
+    let sender = {
       id: payload[3].toLowerCase(),
       name: payload[4],
       health: payload[9]
     }
-    let to = {
+    let receiver = {
       id: payload[5].toLowerCase(),
       name: payload[6],
       health: payload[8]
     }
-    let stack = payload[7]
-
-    if (to.id !== profile.id) {
-      return // 남의꺼
-    }
-
-    if (from.id === to.id) {
-      return // 이마에 챡
-    }
 
     let preference = BUFF_PREFERENCE[name]
-    if (!preference) {
-      return
-    }
+    if (!preference || receiver.id !== profile.id || sender.id === receiver.id) return
 
     let love = preference.love
     if (love === 'all' || love.indexOf(profile.job) > -1) {
-      return sendMessage(`<${from.name}>님께서 <${to.name}>에게 "${name}"을 하사하셨습니다. 햅삐~!`)
+      return sendMessage(`<${sender.name}>님께서 <${receiver.name}>에게 "${name}"${josa(name, '을/를')} 하사하셨습니다.`)
     }
 
     let hate = preference.hate
-    if (hate !== 'none') {
-      return
-    }
-    if (hate.indexOf(profile.job) > -1) {
-      sendMessage(`<${from.name}>놈이 <${to.name}>에게 "${name}"이라는 빅엿을 선사하셨습니다. 미친놈인가? 바로 삭제한다;`)
+    if (hate !== 'none' && hate.indexOf(profile.job) > -1) {
+      sendMessage(`<${sender.name}>놈이 <${receiver.name}>에게 "${name}"${josa(name, '이/')}라는 빅엿을 선사하셨습니다.`)
     }
   }
 
@@ -169,8 +157,8 @@
     window.open('../config/index.html', 'config', 'width=400,height=600')
   }
 
-  function josa (str, list) {
-    return (str.charCodeAt(str.length - 1) - 0xAC00) % 28 > 0 ? list[0] : list[1]
+  function josa (str, js) {
+    return js.split('/')[(str.charCodeAt(str.length - 1) - 0xAC00) % 28 > 0 ? 0 : 1]
   }
 
   window.zone = zone
