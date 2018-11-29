@@ -143,6 +143,10 @@
     window.open('../config/index.html', 'config', 'width=400,height=600')
   }
 
+  function josa (str, list) {
+    return (str.charCodeAt(str.length - 1) - 0xAC00) % 28 > 0 ? list[0] : list[1]
+  }
+
   window.zone = zone
   window.profile = profile
   window.zoneHistory = zoneHistory
