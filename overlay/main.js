@@ -69,22 +69,13 @@
       zone.id = id
       status.textContent = zone.name = name
 
-      let token = localStorage.getItem('instbot--telegram-token')
-      let chatId = localStorage.getItem('instbot--telegram-chat-id')
+      if (zone.name && profile.name) {
+        let z = zone.id + profile.job
+        let t = config('threshold') === 'true'
+        if (t && (Date.now() - zoneHistory[z]) < 900000) return
 
-      if (token && chatId && profile.name && zone.name) {
-        let t = localStorage.getItem('instbot--threshold') === 'true'
-        if (t && (Date.now() - zoneHistory[zone.id + profile.job]) < 900000) return
-
-        let endpoint = `https://api.telegram.org/bot${token}/sendMessage`
-        let text = `<${profile.name}> ⇒${zone.name} (레벨 ${profile.level} ${profile.job})`
-
-        loader.classList.add('loading')
-        zoneHistory[zone.id + profile.job] = Date.now()
-
-        fetch(`${endpoint}?chat_id=${chatId}&text=${encodeURIComponent(text)}`)
-          .then(res => console.log(res) || loader.classList.remove('loading'))
-          .catch(err => console.error(err) || loader.classList.remove('loading'))
+        zoneHistory[t] = Date.now()
+        sendMessage(`<${profile.name}> ⇒${zone.name} (레벨 ${profile.level} ${profile.job})`)
       }
     }
   }
@@ -109,6 +100,25 @@
       profile.job = JOB_CODES[job] || `Unknown (${job})`
       profile.level = parseInt(level, 16)
     }
+  }
+
+  function config (key) {
+    return localStorage.getItem(`instbot--${key}`)
+  }
+
+  function sendMessage (text) {
+    let token = config('telegram-token')
+    let chatId = config('telegram-chat-id')
+
+    if (!token || !chatId) return
+    loader.classList.add('loading')
+
+    let endpoint = `https://api.telegram.org/bot${token}`
+    let params = `chat_id=${chatId}&text=${encodeURIComponent(text)}`
+
+    fetch(`${endpoint}/sendMessage?${params}`)
+      .then(res => loader.classList.remove('loading'))
+      .catch(err => console.error(err, loader.classList.remove('loading')))
   }
 
   function openConfig () {
