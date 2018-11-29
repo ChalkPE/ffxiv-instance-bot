@@ -32,6 +32,7 @@
       case 1: return onZoneChanged(payload)
       case 2: return onMeSpawned(payload)
       case 3: return onEntitySpawned(payload)
+      case 26: return onBuffed(payload)
     }
   }
 
@@ -102,11 +103,28 @@
     }
   }
 
-  function config (key) {
+  function onBuffed (payload) {
+    let id = payload[0]
+    let card = payload[1]
+    let duration = payload[2]
+    let from = {
+      id: payload[3],
+      name: payload[4],
+      health: payload[9]
+    }
+    let to = {
+      id: payload[5],
+      name: payload[6],
+      health: payload[8]
+    }
+    let stack = payload[7]
+  }
+
+  function config(key) {
     return localStorage.getItem(`instbot--${key}`)
   }
 
-  function sendMessage (text) {
+  function sendMessage(text) {
     let token = config('telegram-token')
     let chatId = config('telegram-chat-id')
 
