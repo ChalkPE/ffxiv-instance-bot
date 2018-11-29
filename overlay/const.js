@@ -1,5 +1,5 @@
 (function () {
-  const JOB_CODES = {
+  const JOB_NAMES = {
     '1': '검술사',
     '2': '격투사',
     '3': '도끼술사',
@@ -37,7 +37,7 @@
     '23': '적마도사'
   }
 
-  const CARD_PREFERENCE = {
+  const BUFF_PREFERENCE = {
     '아제마의 균형': {
       love: 'all',
       hate: 'none'
@@ -69,6 +69,6 @@
     }
   }
 
-  window.JOB_CODES = JOB_CODES
-  window.CARD_PREFERENCE = CARD_PREFERENCE
+  window.JOB_NAMES = JOB_NAMES
+  window.BUFF_PREFERENCE = BUFF_PREFERENCE
 })()
