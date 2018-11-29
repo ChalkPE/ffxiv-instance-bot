@@ -105,7 +105,7 @@
 
   function onBuffed (payload) {
     let id = payload[0]
-    let card = payload[1]
+    let name = payload[1]
     let duration = payload[2]
     let from = {
       id: payload[3],
