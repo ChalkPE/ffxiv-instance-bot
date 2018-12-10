@@ -165,6 +165,6 @@
   window.profile = profile
   window.zoneHistory = zoneHistory
 
-  status.addEventListener('click', openConfig)
+  status.addEventListener('dblclick', openConfig)
   document.addEventListener('onLogLine', onLogLine)
 })()
