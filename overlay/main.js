@@ -120,22 +120,23 @@
       health: payload[8]
     }
 
-    let preference = BUFF_PREFERENCE[name]
-    if (!preference || receiver.id !== profile.id || sender.id === receiver.id) return
+    let pref = BUFF_PREFERENCE[name]
+    let a = config('alert-buff') === 'true'
+    if (!a || !pref || receiver.id !== profile.id || sender.id === receiver.id) return
 
-    let love = preference.love
+    let love = pref.love
     if (love === 'all' || love.indexOf(profile.job) > -1) {
       return sendMessage(`<${sender.name}>님께서 <${receiver.name}>에게 "${name}"${josa(name, '을/를')} 하사하셨습니다.`)
     }
 
-    let hate = preference.hate
+    let hate = pref.hate
     if (hate !== 'none' && hate.indexOf(profile.job) > -1) {
       sendMessage(`<${sender.name}>놈이 <${receiver.name}>에게 "${name}"${josa(name, '이/')}라는 빅엿을 선사하셨습니다.`)
     }
   }
 
-  function config (key) {
-    return localStorage.getItem(`instbot--${key}`)
+  function config (key, def) {
+    return localStorage.getItem(`instbot--${key}`, def)
   }
 
   function sendMessage (text) {

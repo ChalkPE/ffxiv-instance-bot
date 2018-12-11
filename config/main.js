@@ -20,17 +20,24 @@
         fields: [
           {
             type: 'checkbox',
-            key: 'instbot--threshold',
+            key: 'alert-buff',
+            def: 'true',
+            name: '버프 알림 보내기',
+            hint: '내 캐릭터가 특정 버프를 받으면 알림을 전송합니다. 현재 직업에 따라 내용이 바뀝니다.',
+          }, {
+            type: 'checkbox',
+            key: 'threshold',
+            def: 'true',
             name: '전송 제한하기',
             hint: '15분 동안은 이미 진입했던 지역에 재진입해도 알림을 보내지 않습니다.'
-          }, {
+          }, , {
             type: 'text',
-            key: 'instbot--telegram-token',
+            key: 'telegram-token',
             name: '텔레그램 봇 토큰',
             placeholder: '예) 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11'
           }, {
             type: 'number',
-            key: 'instbot--telegram-chat-id',
+            key: 'telegram-chat-id',
             name: '텔레그램 Chat ID',
             placeholder: '예) 56781234'
           }

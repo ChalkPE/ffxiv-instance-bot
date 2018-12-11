@@ -16,7 +16,6 @@
             active-class="active">{{tab.displayName}}</router-link>
         </li>
       </ul>
-
       <div class="container mt-2">
         <router-view></router-view>
       </div>
@@ -42,8 +41,8 @@
             :id="f.key"
             :type="f.type"
             :placeholder="f.placeholder"
-            :value="s.getItem(f.key, f.def)"
-            @input="s.setItem(f.key, $event.target.value)">
+            :value="s.getItem('instbot--' + f.key, f.def)"
+            @input="s.setItem('instbot--' + f.key, $event.target.value)">
         </template>
         <p v-if="f.hint" class="form-input-hint">{{f.hint}}</p>
       </div>
