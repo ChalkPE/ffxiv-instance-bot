@@ -22,35 +22,36 @@
     </div>
 
     <template id="general">
-      <div class="form-group" v-for="f of fields" :key="f.key">
+      <div class="form-group" v-for="f of fields" :key="f.id">
         <template v-if="f.type === 'checkbox'">
           <label class="form-switch">
             <input
               type="checkbox"
-              :checked="s.getItem(f.key) === 'true'"
-              @change="s.setItem(f.key, $event.target.checked)">
+              :checked="s.getItem(f.id) === 'true'"
+              @change="s.setItem(f.id, $event.target.checked)">
 
             <i class="form-icon"></i>
             {{ f.name }}
           </label>
         </template>
         <template v-else>
-          <label class="form-label" :for="f.key">{{f.name}}</label>
+          <label class="form-label" :for="f.id">{{f.name}}</label>
           <input
             class="form-input"
-            :id="f.key"
+            :id="f.id"
             :type="f.type"
             :placeholder="f.placeholder"
-            :value="s.getItem('instbot--' + f.key, f.def)"
-            @input="s.setItem('instbot--' + f.key, $event.target.value)">
+            :value="s.getItem('instbot--' + f.id, f.def)"
+            @input="s.setItem('instbot--' + f.id, $event.target.value)">
         </template>
         <p v-if="f.hint" class="form-input-hint">{{f.hint}}</p>
       </div>
     </template>
 
     <template id="about">
-      <h2 class="text-center">ffxiv-instbot</h2>
+      <h2 class="text-center"><a href="https://github.com/ChalkPE/ffxiv-instbot">ffxiv-instbot</a></h2>
       <h5 class="text-center">파판14 인게임 인스턴스 이동 알림봇</h5>
+      <p class="text-center">&copy; 2018-2019 Chalk &middot; <a href="https://github.com/ChalkPE/ffxiv-instbot/blob/master/LICENSE">MIT License</a></p>
     </template>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
